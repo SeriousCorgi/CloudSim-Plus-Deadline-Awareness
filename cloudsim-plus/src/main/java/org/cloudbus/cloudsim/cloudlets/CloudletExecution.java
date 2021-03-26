@@ -113,6 +113,9 @@ public class CloudletExecution {
     /** @see #getLastAllocatedMips() */
     private double lastAllocatedMips;
 
+
+    private double deadline;
+
     /**
      * Instantiates a CloudletExecutionInfo object upon the arrival of a Cloudlet inside a Datacenter.
      * The arriving time is determined by {@link CloudSim#clock()}.
@@ -127,6 +130,7 @@ public class CloudletExecution {
         this.totalCompletionTime = 0.0;
         this.startExecTime = 0.0;
         this.virtualRuntime = 0;
+        this.setDeadline(cloudlet.getDeadline());
 
         //In case a Cloudlet has been executed partially by some other Host
         this.instructionsFinishedSoFar = cloudlet.getFinishedLengthSoFar() * Conversion.MILLION;
@@ -507,5 +511,13 @@ public class CloudletExecution {
         if(lastAllocatedMips > 0) {
             this.lastAllocatedMips = lastAllocatedMips;
         }
+    }
+
+    public double getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(double deadline) {
+        this.deadline = deadline;
     }
 }

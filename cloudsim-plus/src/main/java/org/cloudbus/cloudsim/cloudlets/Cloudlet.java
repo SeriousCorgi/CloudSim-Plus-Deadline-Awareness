@@ -212,6 +212,10 @@ public interface Cloudlet extends UniquelyIdentifiable, Comparable<Cloudlet>, Cu
     @Override
     double getSubmissionDelay();
 
+    void setDeadline(double deadline);
+
+    double getDeadline();
+
     /**
      * Checks if the Cloudlet has finished and returned to the broker,
      * so that the broker is aware about the end of execution of the Cloudlet.

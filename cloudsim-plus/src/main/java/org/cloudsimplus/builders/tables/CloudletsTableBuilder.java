@@ -78,13 +78,22 @@ public class CloudletsTableBuilder extends TableBuilderAbstract<Cloudlet> {
         addColumnDataFunction(getTable().addColumn("VM", ID), cloudlet -> cloudlet.getVm().getId());
         addColumnDataFunction(getTable().addColumn("VM PEs   ", CPU_CORES), cloudlet -> cloudlet.getVm().getNumberOfPes());
         addColumnDataFunction(getTable().addColumn("CloudletLen", "MI"), Cloudlet::getLength);
-        addColumnDataFunction(getTable().addColumn("CloudletPEs", CPU_CORES), Cloudlet::getNumberOfPes);
+//        addColumnDataFunction(getTable().addColumn("CloudletPEs", CPU_CORES), Cloudlet::getNumberOfPes);
 
-        TableColumn col = getTable().addColumn("StartTime", SECONDS).setFormat(TIME_FORMAT);
+        TableColumn col = getTable().addColumn("SubmitTime", SECONDS).setFormat(TIME_FORMAT);
+        addColumnDataFunction(col, Cloudlet::getSubmissionDelay);
+
+        col = getTable().addColumn("StartTime", SECONDS).setFormat(TIME_FORMAT);
         addColumnDataFunction(col, Cloudlet::getExecStartTime);
 
         col = getTable().addColumn("FinishTime", SECONDS).setFormat(TIME_FORMAT);
         addColumnDataFunction(col, cl -> roundTime(cl, cl.getFinishTime()));
+
+        col = getTable().addColumn("Deadline", SECONDS).setFormat(TIME_FORMAT);
+        addColumnDataFunction(col, cl -> roundTime(cl, cl.getDeadline()));
+
+        col = getTable().addColumn("WaitingTime", SECONDS).setFormat(TIME_FORMAT);
+        addColumnDataFunction(col, Cloudlet::getWaitingTime);
 
         col = getTable().addColumn("ExecTime", SECONDS).setFormat(TIME_FORMAT);
         addColumnDataFunction(col, cl -> roundTime(cl, cl.getActualCpuTime()));

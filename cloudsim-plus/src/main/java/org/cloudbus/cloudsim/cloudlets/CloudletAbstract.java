@@ -112,6 +112,9 @@ public abstract class CloudletAbstract extends CustomerEntityAbstract implements
     /** @see #getSubmissionDelay() */
     private double submissionDelay;
 
+
+    private double deadline;
+
     /**
      * Creates a Cloudlet with no priority or id. The id is defined when the Cloudlet is submitted to
      * a {@link DatacenterBroker}. The file size and output size is defined as 1.
@@ -813,6 +816,18 @@ public abstract class CloudletAbstract extends CustomerEntityAbstract implements
         }
 
         this.submissionDelay = submissionDelay;
+    }
+
+    @Override
+    public double getDeadline() { return this.deadline; }
+
+
+    public final void setDeadline(final double deadline) {
+        if (deadline < 0) {
+            return;
+        }
+
+        this.deadline = deadline;
     }
 
     @Override

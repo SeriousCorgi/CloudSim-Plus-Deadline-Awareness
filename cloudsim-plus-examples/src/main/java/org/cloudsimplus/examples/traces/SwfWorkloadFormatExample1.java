@@ -93,7 +93,7 @@ public class SwfWorkloadFormatExample1 {
     /**
      * The workload file to be read.
      */
-    private static final String WORKLOAD_FILENAME = "workload/swf/NASA-iPSC-1993-3.1-cln.swf.gz";
+    private static final String WORKLOAD_FILENAME = "workload/swf/KTH-SP2-1996-2.1-cln.swf.gz";
 
     private final CloudSim simulation;
 
@@ -105,9 +105,9 @@ public class SwfWorkloadFormatExample1 {
      */
     private int maximumNumberOfCloudletsToCreateFromTheWorkloadFile = -1;
 
-    private final int HOST_PES = 12;
+    private final int HOST_PES = 16;
 
-    private static final int  VM_MIPS = 10000;
+    private static final int  VM_MIPS = 5000;
     private static final int  VM_PES = 4;
     private static final long VM_SIZE = 2000;
     private static final int  VM_RAM = 1000;
@@ -192,7 +192,7 @@ public class SwfWorkloadFormatExample1 {
         final double totalCloudletPes = cloudletList.stream().mapToDouble(Cloudlet::getNumberOfPes).sum();
         /* The number to multiple the VM_PES was chosen at random.
         * It's used to reduce the number of VMs to create. */
-        final int totalVms = (int)Math.ceil(totalCloudletPes / (VM_PES*6));
+        final int totalVms = (int)Math.ceil(totalCloudletPes / (VM_PES * 2));
 
         vmlist = new ArrayList<>();
         for (int i = 0; i < totalVms; i++) {

@@ -78,7 +78,7 @@ import java.util.List;
  */
 public class VmSchedulerTimeSharedExample {
     private static final int HOSTS     = 2;
-    private static final int VMS       = 8;
+    private static final int VMS       = 4;
 
     private static final long VM_RAM  = 1000;
     private static final long VM_BW   = 1000;
@@ -88,12 +88,12 @@ public class VmSchedulerTimeSharedExample {
     private static final long HOST_BW = VM_BW * VMS; //in Megabits/s
     private static final long HOST_STORAGE = VM_SIZE * VMS; //in Megabytes
 
-    private static final int HOST_PES     = 2;
-    private static final int VM_PES       = 1;
+    private static final int HOST_PES     = 8;
+    private static final int VM_PES       = 4;
     private static final int CLOUDLET_PES = VM_PES;
 
     private static final int HOST_MIPS = 1000;
-    private static final int VM_MIPS   = HOST_MIPS/2;
+    private static final int VM_MIPS   = HOST_MIPS;
 
     private static final int CLOUDLET_LENGTH = HOST_MIPS*10;
 

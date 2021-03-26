@@ -246,9 +246,19 @@ public final class SwfWorkloadFileReader extends TraceReaderAbstract {
                                );
         final int numProc = Math.max(maxNumProc, 1);
 
+//        final Cloudlet cloudlet = createCloudlet(id, runTime, numProc);
         final Cloudlet cloudlet = createCloudlet(id, runTime, numProc);
         final long submitTime = Long.parseLong(parsedLineArray[SUBMIT_TIME_INDEX].trim());
         cloudlet.setSubmissionDelay(submitTime);
+
+        final double requestRunTime = Double.parseDouble(parsedLineArray[REQ_RUN_TIME_INDEX].trim());
+        final double deadline;
+        if (requestRunTime <= 0) {
+            deadline = requestRunTime;
+        } else {
+            deadline = submitTime + requestRunTime;
+        }
+        cloudlet.setDeadline(deadline);
 
         if(predicate.test(cloudlet)){
             cloudlets.add(cloudlet);

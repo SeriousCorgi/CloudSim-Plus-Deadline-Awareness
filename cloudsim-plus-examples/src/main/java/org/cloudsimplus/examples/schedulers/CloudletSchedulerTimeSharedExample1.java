@@ -38,6 +38,7 @@ import org.cloudbus.cloudsim.provisioners.ResourceProvisioner;
 import org.cloudbus.cloudsim.provisioners.ResourceProvisionerSimple;
 import org.cloudbus.cloudsim.resources.Pe;
 import org.cloudbus.cloudsim.resources.PeSimple;
+import org.cloudbus.cloudsim.schedulers.cloudlet.CloudletSchedulerEDF;
 import org.cloudbus.cloudsim.schedulers.cloudlet.CloudletSchedulerTimeShared;
 import org.cloudbus.cloudsim.schedulers.vm.VmScheduler;
 import org.cloudbus.cloudsim.schedulers.vm.VmSchedulerTimeShared;
@@ -66,14 +67,14 @@ import java.util.List;
  * @since CloudSim Plus 1.2.1
  */
 public class CloudletSchedulerTimeSharedExample1 {
-    private static final int HOSTS = 1;
-    private static final int HOST_PES = 4;
+    private static final int HOSTS = 2;
+    private static final int HOST_PES = 8;
 
-    private static final int VMS = 1;
-    private static final int VM_PES = 2;
+    private static final int VMS = 4;
+    private static final int VM_PES = 4;
 
-    private static final int CLOUDLETS = 2;
-    private static final int CLOUDLET_PES = 2;
+    private static final int CLOUDLETS = 4;
+    private static final int CLOUDLET_PES = 4;
     private static final int CLOUDLET_LENGTH = 10000;
 
     private final CloudSim simulation;
@@ -165,13 +166,16 @@ public class CloudletSchedulerTimeSharedExample1 {
      */
     private List<Cloudlet> createCloudlets() {
         final List<Cloudlet> list = new ArrayList<>(CLOUDLETS);
+        int[] length = new int[]{17021, 21819, 22021, 29980};
         UtilizationModel utilization = new UtilizationModelFull();
         for (int c = 0; c < CLOUDLETS; c++) {
             Cloudlet cloudlet =
-                new CloudletSimple(c, CLOUDLET_LENGTH, CLOUDLET_PES)
+                new CloudletSimple(c, length[c], CLOUDLET_PES)
                     .setFileSize(1024)
                     .setOutputSize(1024)
-                    .setUtilizationModel(utilization);
+                    .setUtilizationModel(utilization)
+                    ;
+//            cloudlet.setSubmissionDelay(10);
             list.add(cloudlet);
         }
 
